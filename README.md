@@ -1,4 +1,4 @@
-# Module Primitives
+# Module
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,19 +11,19 @@ Value types for Swift module identities and import statements — a `Module` nam
 `Module` is a small vocabulary for describing Swift modules and the imports that reference them: a module's canonical name and an import statement carrying the visibility it was written with. It holds the *shapes* only — no source parsing, no file access — so the same values travel unchanged from a tool that reads them to every layer that reasons about them.
 
 ```swift
-import Module_Primitives
+import Module
 
 // A module's identity is its canonical underscore form — the spelling used in `import`.
 let name = Module.Name(product: "Buffer Primitives")
-print(name.value)   // "Buffer_Primitives"
+print(name.value)   // "Buffer"
 
 // Model an import statement together with the visibility it was written with.
 let exposed = Module.Import(module: name, visibility: .public)
-print(exposed.module.value)   // "Buffer_Primitives"
+print(exposed.module.value)   // "Buffer"
 print(exposed.visibility)     // .public
 ```
 
-`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable_Primitives"`.
+`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable"`.
 
 ---
 
@@ -31,7 +31,7 @@ print(exposed.visibility)     // .public
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-module-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-module.git", branch: "main")
 ]
 ```
 
@@ -39,7 +39,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Module Primitives", package: "swift-module-primitives"),
+        .product(name: "Module", package: "swift-module"),
     ]
 )
 ```
@@ -50,12 +50,12 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-Two library products. Depends only on `Source Primitives`, which it re-exports.
+Two library products. Depends only on `Source`, which it re-exports.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Module Primitives` | `Sources/Module Primitives/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source_Primitives`. |
-| `Module Primitives Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
+| `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source`. |
+| `Module Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
 

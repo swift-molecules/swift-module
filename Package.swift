@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-module-primitives",
+    name: "swift-module",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,43 +13,43 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Module Primitives",
-            targets: ["Module Primitives"]
+            name: "Module",
+            targets: ["Module"]
         ),
         .library(
-            name: "Module Primitives Test Support",
-            targets: ["Module Primitives Test Support"]
+            name: "Module Test Support",
+            targets: ["Module Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-source-primitives.git",
+            url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
         )
     ],
     targets: [
         .target(
-            name: "Module Primitives",
+            name: "Module",
             dependencies: [
-                .product(name: "Source Primitives", package: "swift-source-primitives")
+                .product(name: "Source", package: "swift-source")
             ]
         ),
         .target(
-            name: "Module Primitives Test Support",
+            name: "Module Test Support",
             dependencies: [
-                "Module Primitives",
+                "Module",
                 .product(
-                    name: "Source Primitives Test Support",
-                    package: "swift-source-primitives"
+                    name: "Source Test Support",
+                    package: "swift-source"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Module Primitives Tests",
+            name: "Module Tests",
             dependencies: [
-                "Module Primitives",
-                "Module Primitives Test Support",
+                "Module",
+                "Module Test Support",
             ]
         ),
     ],
