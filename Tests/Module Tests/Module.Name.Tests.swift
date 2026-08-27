@@ -18,7 +18,7 @@ extension Module.Name.Tests.Unit {
     }
 
     @Test
-    func `product construction converts spaces to underscores`() {
+    func `product construction removes primitives suffix`() {
         let name = Module.Name(product: "Buffer Primitives")
         #expect(name.value == "Buffer")
     }
@@ -39,7 +39,7 @@ extension Module.Name.Tests.Unit {
 
 extension Module.Name.Tests.`Edge Case` {
     @Test
-    func `product with multiple spaces`() {
+    func `product construction converts remaining spaces to underscores`() {
         let name = Module.Name(product: "Graph Reachable Primitives")
         #expect(name.value == "Graph_Reachable")
     }
