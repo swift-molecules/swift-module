@@ -14,7 +14,7 @@ Value types for Swift module identities and import statements — a `Module` nam
 import Module
 
 // A module's identity is its canonical underscore form — the spelling used in `import`.
-let name = Module.Name(product: "Buffer Primitives")
+let name = Module.Name(product: "Buffer")
 print(name.value)   // "Buffer"
 
 // Model an import statement together with the visibility it was written with.
@@ -23,7 +23,7 @@ print(exposed.module.value)   // "Buffer"
 print(exposed.visibility)     // .public
 ```
 
-`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable"`.
+`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable"` becomes `"Graph_Reachable"`.
 
 ---
 
@@ -31,7 +31,7 @@ print(exposed.visibility)     // .public
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-module.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-module.git", branch: "main")
 ]
 ```
 
@@ -50,12 +50,11 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-Two library products. Depends only on `Source`, which it re-exports.
+One library product. Depends only on `Source Primitives`, which it re-exports.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
 | `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source`. |
-| `Module Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
 

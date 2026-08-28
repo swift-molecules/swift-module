@@ -16,10 +16,6 @@ let package = Package(
             name: "Module",
             targets: ["Module"]
         ),
-        .library(
-            name: "Module Test Support",
-            targets: ["Module Test Support"]
-        ),
     ],
     dependencies: [
         .package(
@@ -34,22 +30,10 @@ let package = Package(
                 .product(name: "Source", package: "swift-source")
             ]
         ),
-        .target(
-            name: "Module Test Support",
-            dependencies: [
-                "Module",
-                .product(
-                    name: "Source Test Support",
-                    package: "swift-source"
-                ),
-            ],
-            path: "Tests/Support"
-        ),
         .testTarget(
             name: "Module Tests",
             dependencies: [
-                "Module",
-                "Module Test Support",
+                .target(name: "Module"),
             ]
         ),
     ],
