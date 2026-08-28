@@ -13,14 +13,14 @@ extension Module.Name {
 extension Module.Name.Tests.Unit {
     @Test
     func `direct construction preserves value`() {
-        let name = Module.Name("Buffer_Primitives")
-        #expect(name.value == "Buffer_Primitives")
+        let name = Module.Name("Buffer")
+        #expect(name.value == "Buffer")
     }
 
     @Test
     func `product construction converts spaces to underscores`() {
-        let name = Module.Name(product: "Buffer Primitives")
-        #expect(name.value == "Buffer_Primitives")
+        let name = Module.Name(product: "Buffer")
+        #expect(name.value == "Buffer")
     }
 
     @Test
@@ -40,7 +40,7 @@ extension Module.Name.Tests.Unit {
 extension Module.Name.Tests.`Edge Case` {
     @Test
     func `product with multiple spaces`() {
-        let name = Module.Name(product: "Graph Reachable Primitives")
-        #expect(name.value == "Graph_Reachable_Primitives")
+        let name = Module.Name(product: "Graph Reachable")
+        #expect(name.value == "Graph_Reachable")
     }
 }

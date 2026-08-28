@@ -14,16 +14,16 @@ Value types for Swift module identities and import statements — a `Module` nam
 import Module
 
 // A module's identity is its canonical underscore form — the spelling used in `import`.
-let name = Module.Name(product: "Buffer Primitives")
-print(name.value)   // "Buffer_Primitives"
+let name = Module.Name(product: "Buffer")
+print(name.value)   // "Buffer"
 
 // Model an import statement together with the visibility it was written with.
 let exposed = Module.Import(module: name, visibility: .public)
-print(exposed.module.value)   // "Buffer_Primitives"
+print(exposed.module.value)   // "Buffer"
 print(exposed.visibility)     // .public
 ```
 
-`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable_Primitives"`.
+`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable"` becomes `"Graph_Reachable"`.
 
 ---
 
@@ -54,7 +54,7 @@ One library product. Depends only on `Source Primitives`, which it re-exports.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source_Primitives`. |
+| `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source`. |
 
 Foundation-free.
 

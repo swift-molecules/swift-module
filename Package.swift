@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-source-primitives.git",
+            url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
         )
     ],
@@ -27,7 +27,7 @@ let package = Package(
         .target(
             name: "Module",
             dependencies: [
-                .product(name: "Source Primitives", package: "swift-source-primitives")
+                .product(name: "Source", package: "swift-source")
             ]
         ),
         .testTarget(
