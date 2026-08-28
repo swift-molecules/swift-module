@@ -23,7 +23,7 @@ print(exposed.module.value)   // "Buffer"
 print(exposed.visibility)     // .public
 ```
 
-`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by removing a terminal `" Primitives"` packaging suffix and converting the remaining spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable"`.
+`Module.Import.Visibility` reports the modifier honestly: `.internal` (a module-internal import, the default), `.public` (re-exposes the imported module's API to downstream clients), and `.exported` (an `@_exported` import that transparently re-exports the module). `Module.Name(product:)` maps a SwiftPM product name to its module spelling by converting spaces to underscores, so `"Graph Reachable Primitives"` becomes `"Graph_Reachable"`.
 
 ---
 
@@ -31,7 +31,7 @@ print(exposed.visibility)     // .public
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-atoms/swift-module.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-module.git", branch: "main")
 ]
 ```
 
@@ -44,21 +44,20 @@ dependencies: [
 )
 ```
 
-Requires Swift 6.4 and macOS 27 / iOS 27 / tvOS 27 / watchOS 27 / visionOS 27 (or the matching Linux / Windows toolchain).
+Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 (or the matching Linux / Windows toolchain).
 
 ---
 
 ## Architecture
 
-Three library products, with no external package dependencies.
+Two library products. Depends only on `Source`, which it re-exports.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (an import statement value), and `Module.Import.Visibility` (`internal` / `public` / `exported`). |
-| `Module Standard Library Integration` | `Sources/Module Standard Library Integration/` | The standard-library integration surface for the Module atom. |
-| `Module Apple Foundation Integration` | `Sources/Module Apple Foundation Integration/` | The Foundation-facing aggregation product. |
+| `Module` | `Sources/Module/` | The `Module` namespace: `Module.Name` (the canonical underscore module identity), `Module.Import` (a parsed import statement), and `Module.Import.Visibility` (`internal` / `public` / `exported`). Re-exports `Source`. |
+| `Module Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
-Foundation is imported only by the Apple Foundation Integration target.
+Foundation-free.
 
 ---
 
@@ -66,11 +65,10 @@ Foundation is imported only by the Apple Foundation Integration target.
 
 | Platform | Status |
 |----------|--------|
-| macOS 27 | Full support |
+| macOS 26 | Full support |
 | Linux | Full support |
 | Windows | Full support |
-| iOS 27 / tvOS 27 / watchOS 27 / visionOS 27 | Supported |
-| Swift Embedded | Native core supported |
+| iOS / tvOS / watchOS / visionOS | Supported |
 
 ---
 

@@ -17,34 +17,40 @@ let package = Package(
             targets: ["Module"]
         ),
         .library(
-            name: "Module Standard Library Integration",
-            targets: ["Module Standard Library Integration"]
-        ),
-        .library(
-            name: "Module Apple Foundation Integration",
-            targets: ["Module Apple Foundation Integration"]
+            name: "Module Test Support",
+            targets: ["Module Test Support"]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/swift-molecules/swift-source.git",
+            branch: "main"
+        )
+    ],
     targets: [
         .target(
             name: "Module",
-            dependencies: []
+            dependencies: [
+                .product(name: "Source", package: "swift-source")
+            ]
         ),
         .target(
-            name: "Module Standard Library Integration",
-            dependencies: ["Module"]
-        ),
-        .target(
-            name: "Module Apple Foundation Integration",
+            name: "Module Test Support",
             dependencies: [
                 "Module",
-                "Module Standard Library Integration",
-            ]
+                .product(
+                    name: "Source Test Support",
+                    package: "swift-source"
+                ),
+            ],
+            path: "Tests/Support"
         ),
         .testTarget(
             name: "Module Tests",
-            dependencies: ["Module"]
+            dependencies: [
+                "Module",
+                "Module Test Support",
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]

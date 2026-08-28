@@ -9,11 +9,7 @@ extension Module {
         }
 
         public init(product name: String) {
-            let suffix = " Primitives"
-            let product = name.hasSuffix(suffix)
-                ? String(name.dropLast(suffix.count))
-                : name
-            self.value = product.replacing(" ", with: "_")
+            self.value = name.replacing(" ", with: "_")
         }
     }
 }
