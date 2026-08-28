@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-module-primitives",
+    name: "swift-module",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,12 +13,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Module Primitives",
-            targets: ["Module Primitives"]
-        ),
-        .library(
-            name: "Module Primitives Test Support",
-            targets: ["Module Primitives Test Support"]
+            name: "Module",
+            targets: ["Module"]
         ),
     ],
     dependencies: [
@@ -29,27 +25,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Module Primitives",
+            name: "Module",
             dependencies: [
                 .product(name: "Source Primitives", package: "swift-source-primitives")
             ]
         ),
-        .target(
-            name: "Module Primitives Test Support",
-            dependencies: [
-                "Module Primitives",
-                .product(
-                    name: "Source Primitives Test Support",
-                    package: "swift-source-primitives"
-                ),
-            ],
-            path: "Tests/Support"
-        ),
         .testTarget(
-            name: "Module Primitives Tests",
+            name: "Module Tests",
             dependencies: [
-                "Module Primitives",
-                "Module Primitives Test Support",
+                .target(name: "Module"),
             ]
         ),
     ],

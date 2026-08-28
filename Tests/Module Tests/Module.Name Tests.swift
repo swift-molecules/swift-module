@@ -1,6 +1,6 @@
 import Testing
 
-@testable import Module_Primitives
+@testable import Module
 
 extension Module.Name {
     @Suite struct Tests {
