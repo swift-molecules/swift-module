@@ -31,7 +31,7 @@ print(exposed.visibility)     // .public
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-atoms/swift-module.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-module.git", branch: "main")
 ]
 ```
 
