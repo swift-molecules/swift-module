@@ -33,6 +33,7 @@ let package = Package(
         .testTarget(
             name: "Module Tests",
             dependencies: [
+                "Module",
             ]
         ),
     ],
