@@ -39,8 +39,20 @@ extension Module.Name.Tests.Unit {
 
 extension Module.Name.Tests.`Edge Case` {
     @Test
-    func `product with multiple spaces`() {
-        let name = Module.Name(product: "Graph Reachable")
-        #expect(name.value == "Graph_Reachable")
+    func `empty product name remains empty`() {
+        let name = Module.Name(product: "")
+        #expect(name.value.isEmpty)
+    }
+
+    @Test
+    func `every space including repeated and outer spaces becomes an underscore`() {
+        let name = Module.Name(product: " Graph  Reachable ")
+        #expect(name.value == "_Graph__Reachable_")
+    }
+
+    @Test
+    func `a product name without spaces preserves Unicode characters`() {
+        let name = Module.Name(product: "Gráph—グラフ")
+        #expect(name.value == "Gráph—グラフ")
     }
 }

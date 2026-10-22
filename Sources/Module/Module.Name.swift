@@ -9,7 +9,11 @@ extension Module {
         }
 
         public init(product name: String) {
-            self.value = name.replacing(" ", with: "_")
+            var value = ""
+            for character in name {
+                value.append(character == " " ? "_" : character)
+            }
+            self.value = value
         }
     }
 }
