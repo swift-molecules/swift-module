@@ -2,7 +2,9 @@ import Testing
 
 @testable import Module
 
-extension Module.Name {
+enum `Module.Name Tests` {}
+
+extension `Module.Name Tests` {
     @Suite struct Tests {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -10,7 +12,7 @@ extension Module.Name {
     }
 }
 
-extension Module.Name.Tests.Unit {
+extension `Module.Name Tests`.Tests.Unit {
     @Test
     func `direct construction preserves value`() {
         let name = Module.Name("Buffer")
@@ -37,7 +39,7 @@ extension Module.Name.Tests.Unit {
     }
 }
 
-extension Module.Name.Tests.`Edge Case` {
+extension `Module.Name Tests`.Tests.`Edge Case` {
     @Test
     func `empty product name remains empty`() {
         let name = Module.Name(product: "")
